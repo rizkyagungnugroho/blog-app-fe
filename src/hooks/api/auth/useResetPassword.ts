@@ -6,24 +6,26 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-
-const useRegister = () => {
+const useResetPassword = (token: string) => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async (payload: Omit<User, "id">) => {
-      const { data } = await axiosInstance.post("/auth/register", payload);
+    mutationFn: async (payload: Pick<User, "password">) => {
+      const { data } = await axiosInstance.patch("/auth/reset-password", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return data;
     },
     onSuccess: () => {
-      toast.success("Register success");
-      console.log("Redirecting to /login...");
+      toast.success("Reset password success");
       router.push("/login");
     },
     onError: (error: AxiosError<any>) => {
-      toast.error(error.response?.data.massage)
+      toast.error(error.response?.data.message || "Something went wrong");
     },
   });
 };
 
-export default useRegister;
+export default useResetPassword;

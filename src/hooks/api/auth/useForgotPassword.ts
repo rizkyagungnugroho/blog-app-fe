@@ -6,24 +6,22 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-
-const useRegister = () => {
+const useForgotPassword = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async (payload: Omit<User, "id">) => {
-      const { data } = await axiosInstance.post("/auth/register", payload);
+    mutationFn: async (payload: Pick<User, "email">) => {
+      const { data } = await axiosInstance.post("/auth/forgot-password", payload);
       return data;
     },
     onSuccess: () => {
-      toast.success("Register success");
-      console.log("Redirecting to /login...");
-      router.push("/login");
+      toast.success("Email sent successfully, please check your inbox.");
+      // router.push("/login"); // Aktifkan jika ingin redirect
     },
     onError: (error: AxiosError<any>) => {
-      toast.error(error.response?.data.massage)
+      toast.error(error.response?.data.message || "Failed to send email");
     },
   });
 };
 
-export default useRegister;
+export default useForgotPassword;

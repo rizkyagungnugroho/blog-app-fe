@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,12 +13,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFormik } from "formik";
 import useLogin from "@/hooks/api/auth/useLogin";
-import { LoginSchema } from "./shemas";
+import { LoginSchema } from "./schemas";
+import { useRouter } from "next/navigation";
+
 
 export function LoginForm({
+
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const router= useRouter()
   const { mutateAsync: login, isPending } = useLogin();
 
   const formik = useFormik({
@@ -25,11 +30,11 @@ export function LoginForm({
       email: "",
       password: "",
     },
-    
+
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
-        await login(values);
-    }
+      await login(values);
+    },
   });
 
   return (
@@ -63,6 +68,12 @@ export function LoginForm({
 
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
+                <Link
+                  href="/forgot-password"
+                  className="text-sm text-blue-600 hover:underline"
+                >
+                  Forgot Password?
+                </Link>
                 <Input
                   id="password"
                   name="password"

@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFormik } from "formik";
 import useRegister from "@/hooks/api/auth/useRegister";
+import { useRouter } from "next/navigation";
+
 
 export function RegisterForm({
   className,

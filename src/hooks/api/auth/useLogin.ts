@@ -17,6 +17,7 @@
         },
         onSuccess: () => {
         toast.success("Login success");
+        router.push("/")
         // router.push("/login"); // ganti ini kalau mau redirect ke halaman lain
         },
         onError: (error: AxiosError<any>) => {

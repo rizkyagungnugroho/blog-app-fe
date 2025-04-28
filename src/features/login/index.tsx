@@ -9,6 +9,6 @@ const LoginPage = () => {
       </div>
     </div>
   )
-}
+} 
 
 export default LoginPage; // ✅ ini yang belum ada

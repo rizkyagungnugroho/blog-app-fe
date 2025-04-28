@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge"
 import { Blog } from "@/types/blog"
 import { FC } from "react"
 

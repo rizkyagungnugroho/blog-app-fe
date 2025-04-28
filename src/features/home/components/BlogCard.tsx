@@ -3,12 +3,14 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Blog } from "@/types/blog";
 import { FC } from "react";
+import Link from "next/link";
 
 interface BlogCardsProps {
   blog: Blog;
 }
 const BlogCard: FC<BlogCardsProps> = ({ blog }) => {
   return (
+    <Link href={`blog/${blog.slug}`}>
     <Card>
       <CardHeader>
         <div className="relative h-[220px] w-full overflow-hidden rounded-lg">
@@ -35,6 +37,7 @@ const BlogCard: FC<BlogCardsProps> = ({ blog }) => {
         <p className="line-clamp-4">{blog.description}</p>
       </CardContent>
     </Card>
+    </Link>
   );
 };
 
